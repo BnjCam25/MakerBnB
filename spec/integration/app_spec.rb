@@ -20,7 +20,7 @@ describe Application do
 
       # Assert the response status code and body.
       expect(response.status).to eq(200)
-      expect(response.body).to eq("Hello priceless")
+      expect(response.body).to include("MakersBnB by priceless")
     end
   end
 

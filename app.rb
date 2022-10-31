@@ -20,7 +20,7 @@ class Application < Sinatra::Base
     # will be used as the response content.
     # Unless specified, the response status code
     # will be 200 (OK).
-    return 'Hello priceless'
+    return erb(:Homepage)
   end
 
   #post '/post' do
