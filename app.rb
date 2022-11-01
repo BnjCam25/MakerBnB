@@ -2,6 +2,8 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require_relative './lib/property_repository'
 require_relative './lib/database_connection'
+require_relative './lib/user_repository'
+
 DatabaseConnection.connect
 
 class Application < Sinatra::Base
@@ -27,6 +29,7 @@ class Application < Sinatra::Base
     return erb(:property)
   end
 
+
   get '/list_property' do
     return erb(:list_property)
   end
@@ -44,6 +47,20 @@ class Application < Sinatra::Base
     @properties = repo.all
 
     return "<html> <meta http-equiv='Refresh' content='0; url= &quot/&quot '    /> </html>"
+
+  get '/signup' do
+    return erb(:signup)
+  end
+
+  post '/signup' do
+    repo = UserRepository.new
+    new_user = User.new
+    new_user.name = params[:name]
+    new_user.email = params[:email]
+    new_user.password = params[:password]
+    repo.create(new_user)
+    return erb(:user_created)
+
   end
 
 end

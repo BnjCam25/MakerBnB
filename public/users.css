@@ -1,0 +1,26 @@
+h1 {
+  color: #ff5a5f;
+}
+
+.button {
+  background-color: #ff5a5f;
+  color: white;
+  border-radius: 9px;
+  width: 200px;
+  height: 30px;
+}
+
+.button:hover {
+  background-color: #4caf50; /* Green */
+  color: white;
+  cursor: pointer;
+}
+
+.form {
+  border-style: groove;
+  border-width: 300px;
+}
+
+body {
+  text-align: center;
+}

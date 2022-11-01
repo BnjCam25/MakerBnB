@@ -45,6 +45,7 @@ describe Application do
     end
   end
 
+
   context "GET property input form" do
     it "returns 200 OK with the input form" do
         response = get("/list_property")
@@ -71,6 +72,21 @@ describe Application do
       expect(response.body).to include("MakersBnB by priceless")
       expect(response.body).to include("London Bridge</a> Price per night: £1000")
       expect(response.body).to include('<a href="/property/3">')
+
+
+  context "GET to /signup" do
+    it "returns 200 OK with the right content" do
+      response = get("/signup")
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<div><p>Name:</p> <input type="text" name="name"></div>')
+    end
+  end
+
+  context "POST to /signup" do
+    it "creates a new user" do
+      response = post("/signup", name: 'Jim Halpert', email: 'jh@gmail.com', password: '10203040')
+      expect(response.status).to eq(200)
+      expect(response.body).to include("New user has been created")
 
     end
   end
