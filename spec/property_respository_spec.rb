@@ -42,4 +42,27 @@ describe PropertyRepository do
     expect(property.description).to eq 'Stunning appartment with a view of the sea front'
     expect(property.price).to eq '200'
   end
+
+  it "creates a property" do
+
+    repo = PropertyRepository.new
+
+    property = Property.new
+
+    property.name = 'Little Cottage'
+    property.description = "A little cottage in the middle of nowhere"
+    property.price = 300
+
+    repo.create(property)
+
+    properties = repo.all
+
+    expect(properties.length).to eq 3
+
+    expect(properties[2].id).to eq '3'
+    expect(properties[2].name).to eq 'Little Cottage'
+    expect(properties[2].description).to eq 'A little cottage in the middle of nowhere'
+    expect(properties[2].price).to eq '300'
+  end
+
 end
