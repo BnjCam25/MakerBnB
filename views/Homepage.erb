@@ -10,7 +10,9 @@
     
     
     List of Properties:
-    
+    <% @properties.each do |property| %>
+      <div>Name: <a href="/property/<%= property.id %>"><%= property.name %></a> Price per night: £<%= property.price %></div>
+    <% end %>
     
     </p>
 
