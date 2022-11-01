@@ -44,4 +44,20 @@ describe Application do
       expect(response.body).to include('<a href="/">')
     end
   end
+
+  context "GET to /signup" do
+    it "returns 200 OK with the right content" do
+      response = get("/signup")
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<div><p>Name:</p> <input type="text" name="name"></div>')
+    end
+  end
+
+  context "POST to /signup" do
+    it "creates a new user" do
+      response = post("/signup", name: 'Jim Halpert', email: 'jh@gmail.com', password: '10203040')
+      expect(response.status).to eq(200)
+      expect(response.body).to include("New user has been created")
+    end
+  end
 end
