@@ -27,4 +27,23 @@ class Application < Sinatra::Base
     return erb(:property)
   end
 
+  get '/list_property' do
+    return erb(:list_property)
+  end
+
+  post '/list_property' do
+    property = Property.new
+    property.name = params[:name]
+    property.description = params[:description]
+    property.price = params[:price]
+    p property.name
+    repo = PropertyRepository.new
+
+    repo.create(property)
+
+    @properties = repo.all
+
+    return "<html> <meta http-equiv='Refresh' content='0; url= &quot/&quot '    /> </html>"
+  end
+
 end

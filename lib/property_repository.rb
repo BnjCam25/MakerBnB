@@ -36,4 +36,11 @@ class PropertyRepository
     # Returns a single Property object.
     return property
   end
+
+
+  def create(property)
+    sql = "INSERT INTO properties (name, description, price) VALUES($1, $2, $3);"
+    params = [property.name, property.description, property.price]
+    DatabaseConnection.exec_params(sql, params)
+  end
 end
