@@ -6,7 +6,7 @@ require_relative '../../app'
 
 def reset_tables
   seed_sql = File.read('spec/users_seeds.sql')
-  connection = PG.connect({ host: '127.0.0.1', dbname: 'makersbnb_test' })
+  connection = DatabaseConnection.connect
   connection.exec(seed_sql)
   seed_sql = File.read('spec/properties_seeds.sql')
   connection.exec(seed_sql)
