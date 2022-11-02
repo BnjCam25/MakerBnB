@@ -1,17 +1,18 @@
 <html>
-  <head></head>
+  <head><link href="<%= url('/users.css') %>" rel="stylesheet" type="text/css" /></head>
   <body>
     <!-- the ERB tag below will be replaced by the value of @name -->
-    <h1> MakersBnB by priceless </h1>
+     <a href="/"> <h1>MakersBnB!</h1></a>
+     <h3>Details of a property MakersBnB!</h3>
     <p>
     
-    
+    <a href="/"><button class="button">Home page</button></a><br><br>
     Property details:
     
     <div>Name: <%= @property.name %></div>
     <div>Description: <%= @property.description %></div>
     <div>Price per night: £<%= @property.price %></div>
-    <a href="/">Home Page</a>
+    
     
     </p>
 

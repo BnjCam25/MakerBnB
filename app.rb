@@ -20,6 +20,7 @@ class Application < Sinatra::Base
   get '/' do
     repo = PropertyRepository.new
     @properties = repo.all
+    @properties.sort!{|a, b| b.id <=> a.id}
     return erb(:Homepage)
   end
 
@@ -39,7 +40,6 @@ class Application < Sinatra::Base
     property.name = params[:name]
     property.description = params[:description]
     property.price = params[:price]
-    p property.name
     repo = PropertyRepository.new
 
     repo.create(property)

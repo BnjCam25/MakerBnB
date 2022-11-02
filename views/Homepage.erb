@@ -1,15 +1,15 @@
 <!-- file: views/homepage.erb -->
 <html>
-  <head></head>
+  <head><link href="<%= url('/users.css') %>" rel="stylesheet" type="text/css" /></head>
   <body>
-    <h1> MakersBnB by priceless </h1>
+  <div>
+     <a href="/"> <h1>MakersBnB!</h1></a>
+     <h3>Welcome to MakersBnB!</h3>
     <p>
     
-    Hello User! 
     <br><br>
-    About
-    Login
-    Signup
+    <a href="/signup"><button class="button">Sign up</button></a>
+    <a href="/list_property"><button class="button">List Property</button></a>
     <br><br>
     List of Properties:
     <% @properties.each do |property| %>
@@ -17,8 +17,8 @@
     <% end %>
     
     </p>
-
-    <a href="/signup"><button>Sign up</button></a>
+</div>
+    
 
 
   </body>

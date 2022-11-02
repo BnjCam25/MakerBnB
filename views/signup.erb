@@ -1,14 +1,17 @@
 <html>
     <head><link href="<%= url('/users.css') %>" rel="stylesheet" type="text/css" /></head>
     <body>
-    <div class="form">
+    <div >
+     
     <form action="/signup" method="POST">
-    <h1>Sign up for MakersBnB!</h1>
+   <a href="/"> <h1>MakersBnB!</h1></a>
+   <h3>Sign up to MakersBnB with your detials below.</h3>
+    
     <div><p>Name:</p> <input type="text" name="name"></div>
     <div><p>Email:</p> <input type="text" name="email"></div>
     <div><p>Password:</p> <input type="text" name="password"></div><br><br>
 
-    <div><input class="button" type="submit" value="Sign up"></div>
+    <div><input class="button" type="submit" value="Submit">
     </form>
     </div>
     </body>
