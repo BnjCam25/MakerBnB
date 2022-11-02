@@ -1,4 +1,13 @@
-DROP TABLE properties;
+DROP TABLE IF EXISTS properties;
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name text,
+  email text,
+  password text
+
+);
 
 CREATE TABLE properties (
   id SERIAL PRIMARY KEY,
@@ -12,10 +21,5 @@ CREATE TABLE properties (
   	on delete cascade
   	);
 
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  name text,
-  email text,
-  password text
 
-);
+

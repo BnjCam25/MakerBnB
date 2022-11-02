@@ -4,7 +4,18 @@ require "spec_helper"
 require "rack/test"
 require_relative '../../app'
 
+def reset_tables
+  seed_sql = File.read('spec/users_seeds.sql')
+  connection = PG.connect({ host: '127.0.0.1', dbname: 'makersbnb_test' })
+  connection.exec(seed_sql)
+  seed_sql = File.read('spec/properties_seeds.sql')
+  connection.exec(seed_sql)
+end
+
 describe Application do
+  before(:each) do 
+    reset_tables
+  end
   # This is so we can use rack-test helper methods.
   include Rack::Test::Methods
 
@@ -20,7 +31,7 @@ describe Application do
 
       # Assert the response status code and body.
       expect(response.status).to eq(200)
-      expect(response.body).to include("MakersBnB by priceless")
+      expect(response.body).to include("Welcome to MakersBnB!")
       expect(response.body).to include("Sandsend</a> Price per night: £200")
       expect(response.body).to include("Quaint Cottage</a> Price per night: £150")
       expect(response.body).to include('<a href="/property/1">')
@@ -36,7 +47,7 @@ describe Application do
 
       # Assert the response status code and body.
       expect(response.status).to eq(200)
-      expect(response.body).to include("MakersBnB by priceless")
+      expect(response.body).to include("MakersBnB!")
       expect(response.body).to include("Property details")
       expect(response.body).to include("Name: Sandsend")
       expect(response.body).to include("Description: Stunning appartment with a view of the sea front")
@@ -56,7 +67,7 @@ describe Application do
         expect(response.body).to include('<input type="text" name="name">')
         expect(response.body).to include('<input type="text" name="description">')
         expect(response.body).to include('<input type="text" name="price">')
-        expect(response.body).to include('<input type="submit" value="create property">')
+        expect(response.body).to include('<input class="button" type="submit" value="create property">')
     end
   end
 
