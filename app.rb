@@ -47,7 +47,7 @@ class Application < Sinatra::Base
     @properties = repo.all
 
     return "<html> <meta http-equiv='Refresh' content='0; url= &quot/&quot '    /> </html>"
-
+  end
   get '/signup' do
     return erb(:signup)
   end
