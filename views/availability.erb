@@ -1,0 +1,19 @@
+<html>
+  <head><link href="<%= url('/users.css') %>" rel="stylesheet" type="text/css" /></head>
+  <body>
+     <a href="/"> <h1>MakersBnB!</h1></a>
+     <h3>List a new property dates to MakersBnB!</h3>
+    <h2> List Property dates</h2>
+    <p>
+    <form action="/availability/<%= @property.id %>" method="POST">
+      Start Date: <input type="text" name="start_date"><br><br>
+      End Date: <input type="text" name="end_date"><br><br>
+    
+      <input class="button" type="submit" value="Submit">
+    </form>
+    
+    </p>
+
+
+  </body>
+</html>

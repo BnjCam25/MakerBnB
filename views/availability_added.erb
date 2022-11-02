@@ -1,0 +1,25 @@
+<html>
+  <head><link href="<%= url('/users.css') %>" rel="stylesheet" type="text/css" /></head>
+  <body>
+    <!-- the ERB tag below will be replaced by the value of @name -->
+     <a href="/"> <h1>MakersBnB!</h1></a>
+     <h3>Details of a property dates MakersBnB!</h3>
+    <p>
+    
+    <a href="/"><button class="button">Home page</button></a><br><br>
+    
+    
+   <h2>Property name: <%= @property.name %></h2>
+   Property dates:<br>
+    <% @dates.each do |date| %>
+       <%= date.start_date%>
+        <%= date.end_date %>
+        <br>
+        <%end%>
+    
+    
+    </p>
+
+
+  </body>
+</html>
