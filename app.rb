@@ -13,6 +13,8 @@ class Application < Sinatra::Base
     register Sinatra::Reloader
   end
 
+  enable :sessions
+
 
 # Declares a route that responds to a request with:
   #  - a GET method
@@ -21,6 +23,7 @@ class Application < Sinatra::Base
     repo = PropertyRepository.new
     @properties = repo.all
     @properties.sort!{|a, b| b.id <=> a.id}
+    @user_id = session[:user_id]
     return erb(:Homepage)
   end
 
@@ -60,7 +63,23 @@ class Application < Sinatra::Base
     new_user.password = params[:password]
     repo.create(new_user)
     return erb(:user_created)
-
   end
 
+  get '/login' do
+    return erb(:login)
+  end
+
+  post '/login' do
+    repo = UserRepository.new
+    users = repo.all
+    result = users.select{|user| user.email == params[:email] && user.password == params[:password]}
+    if result.length > 0
+      @success = "Success"
+      session[:user_id] = result[0].id
+    else
+      @success = "Failed"
+    end
+    
+    return erb(:logged_in)
+  end
 end
