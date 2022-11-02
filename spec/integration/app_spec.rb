@@ -63,15 +63,15 @@ describe Application do
   context "POST create property" do
     it "returns 200 OK" do
       response = post(
-        "\list_property",
+        "/list_property",
         name: "London Bridge",
         description: "A very nice bridge",
         price: "1000")
 
       expect(response.status).to eq (200)
-      expect(response.body).to include("MakersBnB by priceless")
-      expect(response.body).to include("London Bridge</a> Price per night: £1000")
-      expect(response.body).to include('<a href="/property/3">')
+      expect(response.body).to include("<html> <meta http-equiv='Refresh' content='0; url= &quot/&quot '    /> </html>")
+    end
+  end
 
 
   context "GET to /signup" do
