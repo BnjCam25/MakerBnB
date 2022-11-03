@@ -12,7 +12,7 @@
    <h2>Property name: <%= @property.name %></h2>
    Property dates:<br>
     <% @property.start_date.zip(@property.end_date) do |date| %>
-        <%= p date.join(" ") %>
+        <%= date.join(" ") %>
         <br>
         <%end%>
     

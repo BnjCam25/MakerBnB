@@ -1,8 +1,8 @@
 TRUNCATE TABLE users RESTART IDENTITY CASCADE;
 
-INSERT INTO users(name, email, password) VALUES('Bob Dylan', 'bd@gmail.com', '12345678');
-INSERT INTO users(name, email, password) VALUES('Dylan Bob', 'db@gmail.com', '98345678');
-INSERT INTO users(name, email, password) VALUES('Dob Bylan', 'b_d@gmail.com', '32145678');
+INSERT INTO users(name, email, password) VALUES('Bob Dylan', 'bd@gmail.com', '$2a$12$4z5mOpk7fPuM2DrhIff1XeW42MZDDBhdo6vBNr2B8CoEm42LgHLK6');
+INSERT INTO users(name, email, password) VALUES('Dylan Bob', 'db@gmail.com', '2a$12$NUPfqT/4z7ghtKPc/npel.dyxOEmBCUrVtKbSxAQOVKLRK1jJRe3S');
+INSERT INTO users(name, email, password) VALUES('Dob Bylan', 'b_d@gmail.com', '$2a$12$HPlZwOdQIH1C6CHQ.1KOvuiXHBmxdkp1ysb55BweF4THA3tyCIjhy');
 
 
 
@@ -11,8 +11,8 @@ TRUNCATE TABLE properties RESTART IDENTITY CASCADE; -- replace with your own tab
 -- Below this line there should only be `INSERT` statements.
 -- Replace these statements with your own seed data.
 
-INSERT INTO properties (name, description, price) VALUES ('Sandsend', 'Stunning appartment with a view of the sea front', 200);
-INSERT INTO properties (name, description, price) VALUES ('Quaint Cottage', 'Sleepy little cottage with an apple orchard', 150);
+INSERT INTO properties (name, description, price, user_id) VALUES ('Sandsend', 'Stunning appartment with a view of the sea front', 200, 1);
+INSERT INTO properties (name, description, price, user_id) VALUES ('Quaint Cottage', 'Sleepy little cottage with an apple orchard', 150, 2);
 
 TRUNCATE TABLE dates RESTART IDENTITY CASCADE; 
 
