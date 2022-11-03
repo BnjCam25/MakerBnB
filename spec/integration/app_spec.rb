@@ -4,24 +4,27 @@ require "spec_helper"
 require "rack/test"
 require_relative '../../app'
 
-def reset_tables
+
+def reset_properties_table
   seed_sql = File.read('spec/users_seeds.sql')
-  connection = DatabaseConnection.connect
-  connection.exec(seed_sql)
-  seed_sql = File.read('spec/properties_seeds.sql')
+  connection = PG.connect({ host: '127.0.0.1', dbname: 'makersbnb_test' })
   connection.exec(seed_sql)
 end
 
+
 describe Application do
   before(:each) do 
-    reset_tables
+    reset_properties_table
   end
+  
   # This is so we can use rack-test helper methods.
   include Rack::Test::Methods
 
   # We need to declare the `app` value by instantiating the Application
   # class so our tests work.
   let(:app) { Application.new }
+
+
 
   context "GET to /" do
     it "returns 200 OK with the right content" do
@@ -47,7 +50,8 @@ describe Application do
 
       # Assert the response status code and body.
       expect(response.status).to eq(200)
-      expect(response.body).to include("MakersBnB!")
+      expect(response.body).to include("MakersBnB")
+
       expect(response.body).to include("Property details")
       expect(response.body).to include("Name: Sandsend")
       expect(response.body).to include("Description: Stunning appartment with a view of the sea front")
@@ -104,6 +108,7 @@ describe Application do
     end
   end
 
+
   context "GET login form" do
     it "returns 200 OK with the input form" do
         response = get("/login")
@@ -131,6 +136,29 @@ describe Application do
       expect(response.status).to eq(200)
       expect(response.body).to include('Fail')
       
+
+  context "GET to /availability/1" do
+    it "returns 200 OK with the right content" do
+      response = get('/availability/1')
+      expect(response.status).to eq (200)
+      expect(response.body).to include('<h3>List a new property dates to MakersBnB!</h3>')
+
+    end
+  end
+
+  context "POST to /availability/1" do
+    it "Creates new date" do
+      response = post("/availability/1", start_date: '2022/03/10', end_date: '2022/03/15')
+      expect(response.status).to eq (200)
+      expect(response.body).to include('2022-06-20')
+      expect(response.body).to include('2022-06-25')
+      expect(response.body).to include('2022-06-05')
+      expect(response.body).to include('2022-06-15')
+      expect(response.body).to include('2022-03-10')
+      expect(response.body).to include('2022-03-15')
+      expect(response.body).not_to include('2022-04-20')
+      expect(response.body).not_to include('2022-04-25')
+
     end
   end
 end

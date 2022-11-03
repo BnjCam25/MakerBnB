@@ -2,8 +2,8 @@ require 'property_repository'
 require 'pg'
 
 def reset_properties_table
-  seed_sql = File.read('spec/properties_seeds.sql')
-  connection = DatabaseConnection.connect
+  seed_sql = File.read('spec/users_seeds.sql')
+  connection = PG.connect({ host: '127.0.0.1', dbname: 'makersbnb_test' })
   connection.exec(seed_sql)
 end
 
@@ -70,4 +70,16 @@ describe PropertyRepository do
     expect(properties[2].user_id).to eq '3'
   end
 
+  it "returns the correct dates" do
+    repo = PropertyRepository.new
+
+    property = repo.find_dates_by_id(1)
+
+    expect(property.id).to eq '1'
+    expect(property.name).to eq 'Sandsend'
+    expect(property.description).to eq 'Stunning appartment with a view of the sea front'
+    expect(property.price).to eq '200'
+    expect(property.start_date).to eq ["2022-06-05", "2022-06-20"]
+    expect(property.end_date).to eq ["2022-06-15", "2022-06-25"]
+  end
 end

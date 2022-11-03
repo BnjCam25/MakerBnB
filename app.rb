@@ -3,6 +3,7 @@ require 'sinatra/reloader'
 require_relative './lib/property_repository'
 require_relative './lib/database_connection'
 require_relative './lib/user_repository'
+require_relative './lib/date_repository'
 
 DatabaseConnection.connect
 
@@ -69,6 +70,7 @@ class Application < Sinatra::Base
     return erb(:login)
   end
 
+
   post '/login' do
     repo = UserRepository.new
     users = repo.all
@@ -82,4 +84,35 @@ class Application < Sinatra::Base
     
     return erb(:logged_in)
   end
+
+  get '/availability/:id' do
+    repo = PropertyRepository.new
+    @property = repo.find(params[:id])
+    return erb(:availability)
+  end
+
+  post '/availability/:id' do
+    repo_p = PropertyRepository.new
+    @property = repo_p.find_dates_by_id(params[:id])
+    
+    new_date = DateEntry.new
+    
+    
+    new_date.start_date = params[:start_date]
+    new_date.end_date = params[:end_date]
+    
+    
+    repo_d = DateRepository.new
+    repo_d.create(new_date, params[:id])
+
+    @property = repo_p.find_dates_by_id(params[:id])
+
+    @dates = repo_d.all
+    return erb(:availability_added)
+  end
+
+  get '/availability_added' do
+    return erb(:availability_added)
+  end
+
 end

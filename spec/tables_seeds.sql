@@ -1,5 +1,6 @@
-DROP TABLE IF EXISTS properties;
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users CASCADE;
+
+
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -8,6 +9,9 @@ CREATE TABLE users (
   password text
 
 );
+
+DROP TABLE IF EXISTS properties CASCADE;
+
 
 CREATE TABLE properties (
   id SERIAL PRIMARY KEY,
@@ -22,4 +26,19 @@ CREATE TABLE properties (
   	);
 
 
+DROP TABLE IF EXISTS property_dates CASCADE;
 
+CREATE TABLE property_dates (
+  id SERIAL PRIMARY KEY,
+  property_id int,
+  date_id int
+);
+
+DROP TABLE IF EXISTS dates CASCADE;
+
+
+CREATE TABLE dates (
+  id SERIAL PRIMARY KEY,
+  start_date date,
+  end_date date
+);
