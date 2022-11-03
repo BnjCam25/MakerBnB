@@ -1,5 +1,5 @@
-
 DROP TABLE IF EXISTS users CASCADE;
+
 
 
 CREATE TABLE users (
@@ -11,6 +11,7 @@ CREATE TABLE users (
 );
 
 DROP TABLE IF EXISTS properties CASCADE;
+
 
 CREATE TABLE properties (
   id SERIAL PRIMARY KEY,

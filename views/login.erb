@@ -1,0 +1,19 @@
+<!-- file: views/homepage.erb -->
+<html>
+  <head><link href="<%= url('/users.css') %>" rel="stylesheet" type="text/css" /></head>
+  <body>
+  <div>
+     <a href="/"> <h1>MakersBnB!</h1></a>
+     <h3>User Login</h3>
+    <p>
+    <form action="/login" method="POST">
+      Email address: <input type="text" name="email"><br><br>
+      Password: <input type="text" name="password"><br><br>
+      <input class="button" type="submit" value="Login">
+    </form>
+    
+    </p>
+</div>
+  
+  </body>
+</html>
