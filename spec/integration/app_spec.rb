@@ -35,8 +35,8 @@ describe Application do
       # Assert the response status code and body.
       expect(response.status).to eq(200)
       expect(response.body).to include("Welcome to MakersBnB")
-      expect(response.body).to include("Sandsend</a> Price per night: £200")
-      expect(response.body).to include("Quaint Cottage</a> Price per night: £150")
+      expect(response.body).to include("Sandsend")
+      expect(response.body).to include("Quaint Cottage")
       expect(response.body).to include('<a href="/property/1">')
       expect(response.body).to include('<a href="/property/2">')
     end

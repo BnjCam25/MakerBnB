@@ -46,6 +46,7 @@ class Application < Sinatra::Base
     property.name = params[:name]
     property.description = params[:description]
     property.price = params[:price]
+    property.user_id = session[:user_id]
     repo = PropertyRepository.new
 
     repo.create(property)
@@ -96,7 +97,9 @@ class Application < Sinatra::Base
 
   post '/availability/:id' do
     repo_p = PropertyRepository.new
+
     @property = repo_p.find_dates_by_id(params[:id])
+    
     
     new_date = DateEntry.new
     

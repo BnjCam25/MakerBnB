@@ -4,14 +4,20 @@
   <body>
   <div>
     <%if @user_id.nil?%>
+    <div class="container">
+    <div class="image">
+      <img src="<%= url('/airbnb.png') %>" width="100px">
+      </div>
+      <div class="text">
       <a href="/"> <h1>MakersBnB!</h1></a>
+      </div>
+      </div>
       <h3>Welcome to MakersBnB </h3>
       <p>
       
       <br><br>
       <a href="/signup"><button class="button">Sign up</button></a>
       <a href="/login"><button class="button">Log in</button></a>
-      <a href="/list_property"><button class="button">List Property</button></a>
       <br><br>
     <% else %>
       <a href="/"> <h1>MakersBnB!</h1></a>
@@ -24,9 +30,20 @@
     <% end %>
 
     List of Properties:
+    <center>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Price per night</th>
+      </tr>
     <% @properties.each do |property| %>
-      <div>Name: <a href="/property/<%= property.id %>"><%= property.name %></a> Price per night: £<%= property.price %></div>
+    <tr>
+      <td><a href="/property/<%= property.id %>"><%= property.name %></a></td> 
+     <td>£<%= property.price %></td>
     <% end %>
+    </tr>
+    </table>
+    </center>
     
     </p>
 </div>

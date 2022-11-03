@@ -58,6 +58,7 @@ class PropertyRepository
       JOIN dates ON property_dates.date_id = dates.id
       WHERE properties.id = $1;'
 
+      binding.irb
       results = DatabaseConnection.exec_params(sql, [id])
 
       property = Property.new
