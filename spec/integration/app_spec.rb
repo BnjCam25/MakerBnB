@@ -34,7 +34,7 @@ describe Application do
 
       # Assert the response status code and body.
       expect(response.status).to eq(200)
-      expect(response.body).to include("Welcome to MakersBnB!")
+      expect(response.body).to include("Welcome to MakersBnB")
       expect(response.body).to include("Sandsend</a> Price per night: £200")
       expect(response.body).to include("Quaint Cottage</a> Price per night: £150")
       expect(response.body).to include('<a href="/property/1">')
@@ -123,11 +123,18 @@ describe Application do
   end
 
   context "POST login form" do
-    it "returns 200 OK and redirects to homepage" do
+    it "returns 200 OK and redirects to homepage with correct log in details" do
       response = post("/login", email: 'bd@gmail.com', password: '12345678')
       expect(response.status).to eq(200)
       expect(response.body).to include('Success')
 
+      response = get("/")
+      expect(response.body).to include('Bob Dylan')
+      expect(response.body).not_to include('Log in')
+      expect(response.body).not_to include('Sign up')
+    end
+
+    it "returns 200 OK with fail message" do
       response = post("/login", email: 'b@gmail.com', password: '12345678')
       expect(response.status).to eq(200)
       expect(response.body).to include('Fail')
@@ -135,6 +142,12 @@ describe Application do
       response = post("/login", email: 'bd@gmail.com', password: '1234567')
       expect(response.status).to eq(200)
       expect(response.body).to include('Fail')
+
+      response = get("/")
+      expect(response.body).to include('Log in')
+      expect(response.body).to include('Sign up')
+    end
+  end
       
 
   context "GET to /availability/1" do

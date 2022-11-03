@@ -3,15 +3,26 @@
   <head><link href="<%= url('/users.css') %>" rel="stylesheet" type="text/css" /></head>
   <body>
   <div>
-    <%= @user_id %>
-     <a href="/"> <h1>MakersBnB!</h1></a>
-     <h3>Welcome to MakersBnB!</h3>
-    <p>
-    
-    <br><br>
-    <a href="/signup"><button class="button">Sign up</button></a>
-    <a href="/list_property"><button class="button">List Property</button></a>
-    <br><br>
+    <%if @user_id.nil?%>
+      <a href="/"> <h1>MakersBnB!</h1></a>
+      <h3>Welcome to MakersBnB </h3>
+      <p>
+      
+      <br><br>
+      <a href="/signup"><button class="button">Sign up</button></a>
+      <a href="/login"><button class="button">Log in</button></a>
+      <a href="/list_property"><button class="button">List Property</button></a>
+      <br><br>
+    <% else %>
+      <a href="/"> <h1>MakersBnB!</h1></a>
+      <h3>Welcome to MakersBnB <%=@name%></h3>
+      <p>
+      
+      <br><br>
+      <a href="/list_property"><button class="button">List Property</button></a>
+      <br><br>
+    <% end %>
+
     List of Properties:
     <% @properties.each do |property| %>
       <div>Name: <a href="/property/<%= property.id %>"><%= property.name %></a> Price per night: £<%= property.price %></div>

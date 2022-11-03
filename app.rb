@@ -4,6 +4,7 @@ require_relative './lib/property_repository'
 require_relative './lib/database_connection'
 require_relative './lib/user_repository'
 require_relative './lib/date_repository'
+require 'bcrypt'
 
 DatabaseConnection.connect
 
@@ -25,6 +26,7 @@ class Application < Sinatra::Base
     @properties = repo.all
     @properties.sort!{|a, b| b.id <=> a.id}
     @user_id = session[:user_id]
+    @name = session[:name]
     return erb(:Homepage)
   end
 
@@ -61,7 +63,7 @@ class Application < Sinatra::Base
     new_user = User.new
     new_user.name = params[:name]
     new_user.email = params[:email]
-    new_user.password = params[:password]
+    new_user.password = BCrypt::Password.create(params[:password])
     repo.create(new_user)
     return erb(:user_created)
   end
@@ -74,10 +76,11 @@ class Application < Sinatra::Base
   post '/login' do
     repo = UserRepository.new
     users = repo.all
-    result = users.select{|user| user.email == params[:email] && user.password == params[:password]}
+    result = users.select{|user| user.email == params[:email] && BCrypt::Password.new(user.password) == params[:password]}
     if result.length > 0
       @success = "Success"
       session[:user_id] = result[0].id
+      session[:name] = result[0].name
     else
       @success = "Failed"
     end
