@@ -17,9 +17,13 @@ class DateRepository
         return dates
     end
 
-    def create(date)
-        sql = 'INSERT INTO dates(start_date, end_date) VALUES ($1, $2);'
+    def create(date, property_id)
+        sql = 'INSERT INTO dates(start_date, end_date) VALUES ($1, $2) returning id;'
 
-        DatabaseConnection.exec_params(sql, [date.start_date, date.end_date])
+
+       result =  DatabaseConnection.exec_params(sql, [date.start_date, date.end_date])[0]['id']
+       sql = 'INSERT INTO property_dates(property_id, date_id) VALUES ($1, $2);'
+
+       DatabaseConnection.exec_params(sql, [property_id, result])
     end
 end

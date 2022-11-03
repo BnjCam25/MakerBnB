@@ -5,7 +5,7 @@ require "rack/test"
 require_relative '../../app'
 
 def reset_properties_table
-  seed_sql = File.read('spec/properties_seeds.sql')
+  seed_sql = File.read('spec/users_seeds.sql')
   connection = PG.connect({ host: '127.0.0.1', dbname: 'makersbnb_test' })
   connection.exec(seed_sql)
 end
@@ -117,7 +117,14 @@ describe Application do
     it "Creates new date" do
       response = post("/availability/1", start_date: '2022/03/10', end_date: '2022/03/15')
       expect(response.status).to eq (200)
+      expect(response.body).to include('2022-06-20')
+      expect(response.body).to include('2022-06-25')
+      expect(response.body).to include('2022-06-05')
+      expect(response.body).to include('2022-06-15')
       expect(response.body).to include('2022-03-10')
+      expect(response.body).to include('2022-03-15')
+      expect(response.body).not_to include('2022-04-20')
+      expect(response.body).not_to include('2022-04-25')
     end
   end
 end

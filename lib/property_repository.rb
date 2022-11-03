@@ -43,4 +43,38 @@ class PropertyRepository
     params = [property.name, property.description, property.price]
     DatabaseConnection.exec_params(sql, params)
   end
+
+  def find_dates_by_id(id)
+
+
+    properties = []
+
+    sql = 'SELECT  properties.id, properties.name, properties.description, properties.price, 
+      dates.start_date, dates.end_date
+    FROM properties 
+      JOIN property_dates ON property_dates.property_id = properties.id
+      JOIN dates ON property_dates.date_id = dates.id
+      WHERE properties.id = $1;'
+
+      results = DatabaseConnection.exec_params(sql, [id])
+
+      property = Property.new
+
+      property.id = results[0]['id']
+      property.name = results[0]['name']
+      property.description = results[0]['description']
+      property.price = results[0]['price']
+
+      property.start_date = []
+      property.end_date = []
+
+      results.each do |record|
+        property.start_date << record['start_date']
+        property.end_date << record['end_date']
+      end
+      #property.start_date = start_date
+      #property.end_date = end_date
+
+      return property
+  end
 end

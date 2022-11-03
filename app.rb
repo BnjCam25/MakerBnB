@@ -71,8 +71,8 @@ class Application < Sinatra::Base
   end
 
   post '/availability/:id' do
-    repo = PropertyRepository.new
-    @property = repo.find(params[:id])
+    repo_p = PropertyRepository.new
+    @property = repo_p.find_dates_by_id(params[:id])
     
     new_date = DateEntry.new
     
@@ -81,10 +81,12 @@ class Application < Sinatra::Base
     new_date.end_date = params[:end_date]
     
     
-    repo = DateRepository.new
-    repo.create(new_date)
+    repo_d = DateRepository.new
+    repo_d.create(new_date, params[:id])
 
-    @dates = repo.all
+    @property = repo_p.find_dates_by_id(params[:id])
+
+    @dates = repo_d.all
     return erb(:availability_added)
   end
 

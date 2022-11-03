@@ -11,9 +11,8 @@
     
    <h2>Property name: <%= @property.name %></h2>
    Property dates:<br>
-    <% @dates.each do |date| %>
-       <%= date.start_date%>
-        <%= date.end_date %>
+    <% @property.start_date.zip(@property.end_date) do |date| %>
+        <%= p date.join(" ") %>
         <br>
         <%end%>
     
