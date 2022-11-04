@@ -2,7 +2,9 @@
   <head><link href="<%= url('/users.css') %>" rel="stylesheet" type="text/css" /></head>
   <body>
     <!-- the ERB tag below will be replaced by the value of @name -->
+     
      <a href="/"> <h1>MakersBnB!</h1></a>
+
      <h3>Details of a property MakersBnB!</h3>
     <p>
     
@@ -10,9 +12,11 @@
     Property details:
     
     <div>Name: <%= @property.name %></div>
+    <br>
     <div>Description: <%= @property.description %></div>
+    <br>
     <div>Price per night: £<%= @property.price %></div>
-
+    <br>
      <div>Owner is <%= @property.user_id %></div>
     
 
